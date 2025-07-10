@@ -1,5 +1,6 @@
 # get_files_info.py
 import os
+from google.genai import types
 
 
 # Returns strings as this is going to be fed into our llm agent
@@ -43,3 +44,20 @@ def get_directory_content_info(directory: str) -> str:
         content_info.append(item_info)
 
     return "\n".join(content_info)
+
+
+# types.FunctionDeclaration is used to build the declartaion/schema for a function
+# working_directory will be hardcoded
+schema_get_files_info = types.FunctionDeclaration(
+    name="get_files_info",
+    description="Lists files in the specified directory along with their sizes, constrained to the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "directory": types.Schema(
+                type=types.Type.STRING,
+                description="The directory to list files from, relative to the working directory. If not provided, lists files in the working directory itself.",
+            ),
+        },
+    ),
+)

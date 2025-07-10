@@ -1,5 +1,6 @@
 import os
-from config import MAX_CHARS
+from functions.config import MAX_CHARS
+from google.genai import types
 
 
 def get_file_content(working_directory: str, file_path: str) -> str:
@@ -21,3 +22,20 @@ def get_file_content(working_directory: str, file_path: str) -> str:
         return file_content_string
     except OSError as e:
         return f"Error: {e}"
+
+
+# types.FunctionDeclaration is used to build the declartaion/schema for a function
+# working_directory will be hardcoded
+schema_get_file_content = types.FunctionDeclaration(
+    name="get_file_content",
+    description="Outputs up to 10000 characters of content from the specified file, constrained to the working directory..",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The path to the file to read, relative to the working directory.",
+            ),
+        },
+    ),
+)

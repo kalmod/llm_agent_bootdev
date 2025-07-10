@@ -5,10 +5,19 @@ from enum import Enum
 class Color(Enum):
     ORANGE = 208
     BLUE = 45
+    MAGENTA = 200
+    RED = 196
+    GREEN = 40
 
 
 ANSI_ESCAPE = "\x1b"
-MAIN_COLORS = {Color.ORANGE: "38;5;208", Color.BLUE: "38;5;45"}
+MAIN_COLORS = {
+    Color.ORANGE: "38;5;208",
+    Color.BLUE: "38;5;45",
+    Color.MAGENTA: "38;5;200",
+    Color.RED: "38;5;196",
+    Color.GREEN: "38;5;40",
+}
 
 
 def set_color(color: Color):
